@@ -26,7 +26,7 @@ mc.display()
 ```
 
 
-# Features
+## Features
 
 Notable features include:
 
@@ -39,7 +39,7 @@ Notable features include:
 * Attachments are easy -- just pass the filename
 
 
-# Supported Email Applications
+## Supported Email Applications
 
 Supported email applications currently include:
 
