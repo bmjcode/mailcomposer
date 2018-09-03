@@ -25,6 +25,14 @@ def demo():
         # Use the exception text as our test message
         mc.body = err
 
+    try:
+        # Attach the base.py file
+        mc.attach_file(os.path.join("mailcomposer", "base.py"))
+
+    except (OSError):
+        # No worries; we just won't get to test attachments
+        pass
+
     mc.display()
 
 

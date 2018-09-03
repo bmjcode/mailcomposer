@@ -20,7 +20,7 @@ class DummyMailComposer(BaseMailComposer):
     message to stdout.
     """
 
-    def display(self):
+    def display(self, blocking=True):
         """Print the message to stdout."""
 
         print(str(self))

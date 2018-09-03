@@ -106,7 +106,7 @@ class BaseMailComposer(object):
             message = "No such file or directory: '{0}'".format(path)
             raise MailComposerError(message)
 
-    def display(self):
+    def display(self, blocking=True):
         """Display this message in your email application."""
 
         raise NotImplementedError
