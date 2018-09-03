@@ -71,8 +71,13 @@ class _ThunderbirdComposer(BaseMailComposer):
 
         # Format the message body
         if self._body:
-            message["body"] = self._body
-            message["format"] = self._body_format
+            if self._body_format == "hybrid":
+                message["body"] = self._html_escape(self._body)
+                message["format"] = "html"
+
+            else:
+                message["body"] = self._body
+                message["format"] = self._body_format
 
         # Process message attachments
         if self._attachments:
@@ -92,6 +97,17 @@ class _ThunderbirdComposer(BaseMailComposer):
         thunderbird_process = subprocess.Popen(thunderbird_args)
         if blocking:
             thunderbird_process.wait()
+
+    # ------------------------------------------------------------------------
+
+    @staticmethod
+    def _html_escape(value):
+        """Escape HTML special characters in the specified value."""
+
+        return (value
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;"))
 
 
 if thunderbird:

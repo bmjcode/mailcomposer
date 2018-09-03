@@ -47,6 +47,8 @@ class _OutlookComposer(BaseMailComposer):
         if self._body_format == "html":
             message.HTMLBody = self._body
         else:
+            # Note that Outlook effectively uses "hybrid" mode
+            # by default for composing plain-text messages
             message.Body = self._body
 
         # Process message attachments

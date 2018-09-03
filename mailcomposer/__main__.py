@@ -14,7 +14,6 @@ def demo():
     mc = MailComposer()
     mc.to = "Odysseus <nobody@example.com>"
     mc.subject = "MailComposer Demo"
-    mc.body_format = "text"
 
     try:
         # Use the README file as our test message

@@ -50,7 +50,7 @@ class BaseMailComposer(object):
         if "body_format" in kw:
             self._body_format = self._parse_body_format(kw["body_format"])
         else:
-            self._body_format = "text"
+            self._body_format = "hybrid"
 
         # Attachments are not accepted as a keyword argument
         self._attachments = []
@@ -118,11 +118,12 @@ class BaseMailComposer(object):
     def _parse_body_format(self, body_format):
         """Parse the "body_format" property."""
 
-        if body_format in ("text", "html"):
+        if body_format in ("text", "html", "hybrid"):
             return body_format
 
         else:
-            raise ValueError("body_format must be one of 'text' or 'html'")
+            message = "body_format must be one of 'text', 'html', or 'hybrid'"
+            raise ValueError(message)
 
     def _parse_recipients(self, recipients):
         """Parse the "to", "cc", or "bcc" property."""
@@ -217,16 +218,20 @@ class BaseMailComposer(object):
 
     @property
     def body_format(self):
-        """The body format of the email.
+        """The format of the message body.
 
-        Recognized values:
+        Possible values are:
 
-          "text"
-            Use plain-text formatting (the default).
+          'text'
+            Indicates the message body is in plain-text format.
 
-          "html"
-            Use HTML formatting. The level of support depends on your
-            email application's capabilities.
+          'html'
+            Indicates the message body is in HTML format.
+
+          'hybrid' (default)
+            Indicates the message body is in plain-text format, but
+            the message should be sent using HTML formatting if your
+            email application supports it.
         """
         return self._body_format
 
