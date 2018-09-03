@@ -100,7 +100,9 @@ class BaseMailComposer(object):
         """Attach the specified file to this message."""
 
         if os.path.exists(path):
-            self._attachments.append(path)
+            # Always give the file's absolute path, since the email
+            # application might not share our working directory
+            self._attachments.append(os.path.abspath(path))
 
         else:
             message = "No such file or directory: '{0}'".format(path)

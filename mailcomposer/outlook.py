@@ -40,7 +40,7 @@ class OutlookComposer(BaseMailComposer):
         # Process message attachments
         for path in self._attachments:
             # Outlook requires an absolute path
-            message.Attachments.Add(Source=os.path.abspath(path))
+            message.Attachments.Add(Source=path)
 
         # Display the message
         message.Display(blocking)
