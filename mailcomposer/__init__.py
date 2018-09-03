@@ -34,12 +34,13 @@ you really shouldn't.
 from .base import BaseMailComposer
 from .dummy import DummyMailComposer
 
-try:
-    from .outlook import OutlookComposer
-except (ImportError):
-    OutlookComposer = None
-
+# Email application interfaces with no special import requirements
 from .thunderbird import ThunderbirdComposer
+
+# The Outlook interface will fail to import on non-Windows systems,
+# or if pywin32 is not installed
+try: from .outlook import OutlookComposer
+except (ImportError): OutlookComposer = None
 
 from .exceptions import MailComposerError
 
