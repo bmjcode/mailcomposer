@@ -22,12 +22,16 @@ For testing purposes, there is also a DummyMailComposer interface that
 simply prints the message to stdout. It is never selected automatically;
 you must explicitly create a DummyMailComposer object to use it.
 
+All email application interfaces are descended from a common base class,
+BaseMailComposer, and have identical public attributes and methods.
+
 mailcomposer provides its own exception class, MailComposerError, for
 problems that occur during processing. It can, and probably will, also
 raise any of the standard Python exceptions if you attempt something
 you really shouldn't.
 """
 
+from .base import BaseMailComposer
 from .dummy import DummyMailComposer
 
 try:
@@ -66,16 +70,15 @@ def MailComposer(**kw):
         raise MailComposerError(message)
 
 
-# BaseMailComposer is an internal class that doesn't need to be exported
 __all__ = [
-    # Default interface
     "MailComposer",
-
-    # All available interfaces
+    "BaseMailComposer",
     "DummyMailComposer",
+
+    # Email application interfaces
     "OutlookComposer",
     "ThunderbirdComposer",
 
-    # Exception class
+    # Exception classes
     "MailComposerError",
 ]
