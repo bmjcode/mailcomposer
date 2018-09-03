@@ -17,6 +17,9 @@ applications. Available classes are:
     MAPI-based interface for Microsoft Outlook. Requires the pywin32
     package. This interface is only available on Microsoft Windows.
 
+  ThunderbirdComposer
+    Interface for Mozilla Thunderbird.
+
   DummyMailComposer
     A dummy class provided for testing, and as a fallback in case no
     other interfaces are available. This class does not actually call an
@@ -35,12 +38,21 @@ try:
 except (ImportError):
     OutlookComposer = None
 
+from .thunderbird import ThunderbirdComposer
+
 from .exceptions import MailComposerError
 
 
 # Set MailComposer to a reasonable default for your system
-if OutlookComposer:
+if ThunderbirdComposer:
+    MailComposer = ThunderbirdComposer
+
+elif OutlookComposer:
+    # Outlook gets low priority if other mail clients are installed.
+    # Because Outlook is part of the default Microsoft Office installation,
+    # it's more likely than a standalone client to be present but not used.
     MailComposer = OutlookComposer
+
 else:
     MailComposer = DummyMailComposer
 
@@ -53,6 +65,7 @@ __all__ = [
     # All available interfaces
     "DummyMailComposer",
     "OutlookComposer",
+    "ThunderbirdComposer",
 
     # Exception class
     "MailComposerError",
