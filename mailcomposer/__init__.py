@@ -5,13 +5,11 @@
 mailcomposer aims to provide a simple, cross-platform interface for
 composing emails through an external application like Microsoft Outlook.
 
-mailcomposer provides several classes to support a variety of email
-applications. Available classes are:
+The recommended way to use mailcomposer is via the MailComposer factory
+function, which attempts to automatically select the most suitable email
+application interface for your system.
 
-  MailComposer
-    The default class, recommended for most applications. This is a
-    special name that's automatically assigned to the most capable of
-    the below classes available on your system.
+Supported interfaces are:
 
   OutlookComposer
     MAPI-based interface for Microsoft Outlook. Requires the pywin32
@@ -20,14 +18,13 @@ applications. Available classes are:
   ThunderbirdComposer
     Interface for Mozilla Thunderbird.
 
-  DummyMailComposer
-    A dummy class provided for testing, and as a fallback in case no
-    other interfaces are available. This class does not actually call an
-    email application, but will display the message contents on stdout.
+For testing purposes, there is also a DummyMailComposer interface that
+simply prints the message to stdout. It is never selected automatically;
+you must explicitly create a DummyMailComposer object to use it.
 
-mailcomposer also provides its own exception class, MailComposerError,
-for problems that occur during processing. It can, and probably will,
-also raise any of the standard Python exceptions if you attempt something
+mailcomposer provides its own exception class, MailComposerError, for
+problems that occur during processing. It can, and probably will, also
+raise any of the standard Python exceptions if you attempt something
 you really shouldn't.
 """
 
@@ -43,18 +40,30 @@ from .thunderbird import ThunderbirdComposer
 from .exceptions import MailComposerError
 
 
-# Set MailComposer to a reasonable default for your system
-if ThunderbirdComposer:
-    MailComposer = ThunderbirdComposer
+def MailComposer(**kw):
+    """Email application interface.
 
-elif OutlookComposer:
-    # Outlook gets low priority if other mail clients are installed.
+    This is a factory function that attempts to automatically select
+    the most suitable email application interface for your system.
+
+    A MailComposerError is raised if no supported email application
+    can be found.
+    """
+
+    # Start with dedicated email clients
+    if ThunderbirdComposer:
+        return ThunderbirdComposer(**kw)
+
+    # Outlook gets low priority if other email clients are installed.
     # Because Outlook is part of the default Microsoft Office installation,
     # it's more likely than a standalone client to be present but not used.
-    MailComposer = OutlookComposer
+    elif OutlookComposer:
+        return OutlookComposer(**kw)
 
-else:
-    MailComposer = DummyMailComposer
+    # Raise an exception if no suitable email clients are installed
+    else:
+        message = "No suitable email clients were found on your system."
+        raise MailComposerError(message)
 
 
 # BaseMailComposer is an internal class that doesn't need to be exported
