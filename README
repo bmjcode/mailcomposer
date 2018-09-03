@@ -1,0 +1,6 @@
+mailcomposer aims to provide a simple, cross-platform interface for
+composing emails through an external application like Microsoft Outlook.
+
+It is currently in the very early stages of development. As a result,
+feature support is limited, and the API may be subject to dramatic change
+at a moment's notice.
