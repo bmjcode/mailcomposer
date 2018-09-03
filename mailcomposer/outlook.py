@@ -6,19 +6,31 @@ import os
 import sys
 
 import win32com.client
+import pywintypes
 
 from .base import BaseMailComposer
 from .exceptions import MailComposerError
 
 
-class OutlookComposer(BaseMailComposer):
+__all__ = ["OutlookComposer"]
+
+
+try:
+    # Connect to Outlook
+    outlook = win32com.client.Dispatch("Outlook.Application")
+
+except (pywintypes.com_error):
+    # Outlook is not available on this system
+    outlook = None
+
+
+class _OutlookComposer(BaseMailComposer):
     """MAPI-based interface for Microsoft Outlook."""
 
     def display(self, blocking=True):
         """Display the message in Microsoft Outlook."""
 
-        # Connect to Outlook and create a new message
-        outlook = win32com.client.Dispatch("Outlook.Application")
+        # Create a new message
         message = outlook.CreateItem(0)
 
         # Process the message headers
@@ -44,3 +56,10 @@ class OutlookComposer(BaseMailComposer):
 
         # Display the message
         message.Display(blocking)
+
+
+if outlook:
+    OutlookComposer = _OutlookComposer
+
+else:
+    OutlookComposer = None
