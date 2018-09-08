@@ -8,6 +8,7 @@ import subprocess
 
 from .base import BaseMailComposer
 from .exceptions import MailComposerError
+from .util import find_executable
 
 try:
     # Python 3
@@ -23,31 +24,21 @@ __all__ = ["ThunderbirdComposer"]
 # Find the Thunderbird executable
 thunderbird = None
 if sys.platform.startswith("win"):
-    # Paths to Program Files
+    search_dirs = []
+
+    # Possible paths to Program Files
     pf_dirs = os.getenv("PROGRAMFILES"), os.getenv("PROGRAMFILES(x86)")
 
     for program_files in pf_dirs:
-        # Path to the Thunderbird executable
-        thunderbird_exe = os.path.join(program_files,
-                                       "Mozilla Thunderbird",
-                                       "thunderbird.exe")
+        thunderbird_dir = os.path.join(program_files, "Mozilla Thunderbird")
+        if not thunderbird_dir in search_dirs:
+            search_dirs.append(thunderbird_dir)
 
-        if os.path.exists(thunderbird_exe):
-            thunderbird = thunderbird_exe
-            break
+        thunderbird = find_executable("thunderbird", search_dirs)
 
 else:
     # Search the system path
-    system_path = os.getenv("PATH")
-
-    for bin_dir in system_path.split(os.pathsep):
-        # Path to the Thunderbird executable
-        thunderbird_exe = os.path.join(bin_dir,
-                                       "thunderbird")
-
-        if os.path.exists(thunderbird_exe):
-            thunderbird = thunderbird_exe
-            break
+    thunderbird = find_executable("thunderbird")
 
 
 class _ThunderbirdComposer(BaseMailComposer):
