@@ -18,6 +18,9 @@ Supported interfaces are:
   ThunderbirdComposer
     Interface for Mozilla Thunderbird.
 
+  XDGEmailComposer
+    Fallback interface for Unix using xdg-email.
+
 For testing purposes, there is also a DummyMailComposer interface that
 simply prints the message to stdout. It is never selected automatically;
 you must explicitly create a DummyMailComposer object to use it.
@@ -36,6 +39,7 @@ from .dummy import DummyMailComposer
 
 # Email application interfaces with no special import requirements
 from .thunderbird import ThunderbirdComposer
+from .xdg_email import XDGEmailComposer
 
 # The Outlook interface will fail to import on non-Windows systems,
 # or if pywin32 is not installed
@@ -64,6 +68,11 @@ def MailComposer(**kw):
     # it's more likely than a standalone client to be present but not used.
     elif OutlookComposer:
         return OutlookComposer(**kw)
+
+    # Use xdg-email, which attempts to provide a standard command-line
+    # interface on Unix systems, as a last resort.
+    elif XDGEmailComposer:
+        return XDGEmailComposer(**kw)
 
     # Raise an exception if no suitable email clients are installed
     else:

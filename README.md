@@ -45,3 +45,5 @@ Supported email applications currently include:
 
 * Microsoft Outlook (Windows only; requires [pywin32](https://pypi.org/project/pywin32/))
 * Mozilla Thunderbird
+
+On Unix systems, mailcomposer can also access other email applications via the `xdg-email` utility from [xdg-utils](https://freedesktop.org/wiki/Software/xdg-utils/). However, some features like setting the body format are not supported using `xdg-email`.
