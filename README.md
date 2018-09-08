@@ -25,6 +25,8 @@ mc.attach_file("README.md")
 mc.display()
 ```
 
+The mailcomposer module can also be called as a script from the command line. When used this way, it provides an interface similar to the Unix `mail` utility. For more information, try `python -m mailcomposer --help`.
+
 
 ## Features
 
