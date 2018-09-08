@@ -22,31 +22,33 @@ class BaseMailComposer(object):
     def __init__(self, **kw):
         """Return a new MailComposer object."""
 
-        if "to" in kw:
+        if "to" in kw and kw["to"]:
             self._to = self._parse_recipients(kw["to"])
         else:
             self._to = []
 
-        if "cc" in kw:
+        if "cc" in kw and kw["cc"]:
             self._cc = self._parse_recipients(kw["cc"])
         else:
             self._cc = []
 
-        if "bcc" in kw:
+        if "bcc" in kw and kw["bcc"]:
             self._bcc = self._parse_recipients(kw["bcc"])
         else:
             self._bcc = []
 
-        if "subject" in kw:
+        if "subject" in kw and kw["subject"]:
             self._subject = str(kw["subject"])
         else:
             self._subject = ""
 
-        if "body" in kw:
+        if "body" in kw and kw["body"]:
             self._body = str(kw["body"])
         else:
             self._body = ""
 
+        # Note: self._parse_body_format() will check the formatting
+        # for this argument and raise an exception if there's a problem.
         if "body_format" in kw:
             self._body_format = self._parse_body_format(kw["body_format"])
         else:
@@ -143,7 +145,10 @@ class BaseMailComposer(object):
 
     @to.setter
     def to(self, value):
-        self._to = self._parse_recipients(value)
+        if value:
+            self._to = self._parse_recipients(value)
+        else:
+            self._to = []
 
     @to.deleter
     def to(self):
@@ -159,7 +164,10 @@ class BaseMailComposer(object):
 
     @cc.setter
     def cc(self, value):
-        self._cc = self._parse_recipients(value)
+        if value:
+            self._cc = self._parse_recipients(value)
+        else:
+            self._cc = []
 
     @cc.deleter
     def cc(self):
@@ -175,7 +183,10 @@ class BaseMailComposer(object):
 
     @bcc.setter
     def bcc(self, value):
-        self._bcc = self._parse_recipients(value)
+        if value:
+            self._bcc = self._parse_recipients(value)
+        else:
+            self._bcc = []
 
     @bcc.deleter
     def bcc(self):
@@ -191,7 +202,10 @@ class BaseMailComposer(object):
 
     @subject.setter
     def subject(self, value):
-        self._subject = str(value)
+        if value:
+            self._subject = str(value)
+        else:
+            self._subject = ""
 
     @subject.deleter
     def subject(self):
@@ -207,7 +221,10 @@ class BaseMailComposer(object):
 
     @body.setter
     def body(self, value):
-        self._body = str(value)
+        if value:
+            self._body = str(value)
+        else:
+            self._body = ""
 
     @body.deleter
     def body(self):
