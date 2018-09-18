@@ -26,15 +26,17 @@ thunderbird = None
 if sys.platform.startswith("win"):
     search_dirs = []
 
-    # Possible paths to Program Files
-    pf_dirs = os.getenv("PROGRAMFILES"), os.getenv("PROGRAMFILES(x86)")
+    # Environment variables containing possible paths to Program Files
+    pf_vars = "ProgramFiles", "ProgramW6432", "ProgramFiles(x86)"
 
-    for program_files in pf_dirs:
-        thunderbird_dir = os.path.join(program_files, "Mozilla Thunderbird")
-        if not thunderbird_dir in search_dirs:
-            search_dirs.append(thunderbird_dir)
+    for program_files in map(os.getenv, pf_vars):
+        if program_files:
+            thunderbird_dir = os.path.join(program_files,
+                                           "Mozilla Thunderbird")
+            if not thunderbird_dir in search_dirs:
+                search_dirs.append(thunderbird_dir)
 
-        thunderbird = find_executable("thunderbird", search_dirs)
+            thunderbird = find_executable("thunderbird", search_dirs)
 
 else:
     # Search the system path
