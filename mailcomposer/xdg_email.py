@@ -61,6 +61,12 @@ class _XDGEmailComposer(BaseMailComposer):
             args.append("--attach")
             args.append(path)
 
+        # xdg-email expects at least one "To:" address to be specified.
+        # This is a somewhat clumsy workaround to avoid an error message
+        # if none is present (tested to work with xdg-email 1.1.2).
+        if not self._to:
+            self._to.append("mailto: ")
+
         # Add recipients last
         for addr in self._to:
             args.append(addr)
