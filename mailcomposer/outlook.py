@@ -27,6 +27,8 @@ except (pywintypes.com_error):
 class _OutlookComposer(BaseMailComposer):
     """MAPI-based interface for Microsoft Outlook."""
 
+    __slots__ = []
+
     def display(self, blocking=True):
         """Display the message in Microsoft Outlook."""
 

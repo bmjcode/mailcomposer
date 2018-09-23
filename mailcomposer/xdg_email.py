@@ -31,6 +31,8 @@ class _XDGEmailComposer(BaseMailComposer):
     Messages will always be composed using your client's default format.
     """
 
+    __slots__ = []
+
     def display(self, blocking=True):
         """Call xdg-email to display this message."""
 

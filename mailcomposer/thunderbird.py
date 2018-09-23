@@ -46,6 +46,8 @@ else:
 class _ThunderbirdComposer(BaseMailComposer):
     """Interface for Mozilla Thunderbird."""
 
+    __slots__ = []
+
     def display(self, blocking=True):
         """Display the message in Mozilla Thunderbird."""
 
