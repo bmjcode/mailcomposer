@@ -14,7 +14,7 @@ with open("README.md", "r") as readme:
 URL = "https://github.com/bmjcode/mailcomposer"
 PACKAGES = find_packages()
 CLASSIFIERS = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Programming Language :: Python :: 2",
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
