@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """MAPI-based interface for Microsoft Outlook (requires pywin32)."""
 
 import os

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """Base class for MailComposer objects."""
 
 import os

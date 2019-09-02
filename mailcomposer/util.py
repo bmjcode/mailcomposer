@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """Utility functions for internal use."""
 
 import os

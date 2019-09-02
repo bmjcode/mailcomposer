@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """Dummy MailComposer interface."""
 
 # For Python 2 compatibility

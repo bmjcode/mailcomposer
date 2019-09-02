@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """Fallback interface using xdg-email."""
 
 # Note: This interface is intended for Unix, but technically it would also

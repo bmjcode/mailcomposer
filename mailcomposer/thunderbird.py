@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """Interface for Mozilla Thunderbird."""
 
 import os

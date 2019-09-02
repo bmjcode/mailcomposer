@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """API for composing emails through an external application.
 
 mailcomposer aims to provide a simple, cross-platform interface for
