@@ -1,7 +1,6 @@
 """Demonstration of the MailComposer class."""
 
 import os
-import sys
 import argparse
 
 from . import *

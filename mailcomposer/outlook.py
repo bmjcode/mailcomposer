@@ -1,8 +1,5 @@
 """MAPI-based interface for Microsoft Outlook (requires pywin32)."""
 
-import os
-import sys
-
 import win32com.client
 import pywintypes
 

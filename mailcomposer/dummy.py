@@ -3,9 +3,6 @@
 # For Python 2 compatibility
 from __future__ import print_function
 
-import os
-import sys
-
 from .base import BaseMailComposer
 from .exceptions import MailComposerError
 

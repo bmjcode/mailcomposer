@@ -1,7 +1,6 @@
 """Base class for MailComposer objects."""
 
 import os
-import sys
 import textwrap
 
 from .exceptions import MailComposerError

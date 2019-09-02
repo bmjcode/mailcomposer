@@ -3,8 +3,6 @@
 # Note: This interface is intended for Unix, but technically it would also
 # work on Windows if there was an equivalent xdg-email.exe utility.
 
-import os
-import sys
 import subprocess
 
 from .base import BaseMailComposer
