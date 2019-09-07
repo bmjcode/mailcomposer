@@ -3,7 +3,7 @@
 from setuptools import setup, find_packages
 
 NAME = "mailcomposer"
-VERSION = "0.2.3"
+VERSION = "0.2.4"
 AUTHOR = "Benjamin Johnson"
 AUTHOR_EMAIL = "bmjcode@gmail.com"
 DESCRIPTION = "API for composing emails through an external application"
